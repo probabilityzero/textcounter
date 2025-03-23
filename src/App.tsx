@@ -97,7 +97,7 @@ const App: React.FC = () => {
 
   return (
     // <div className={`min-h-screen ${theme === 'dark' ? 'bg-black text-[#f5d0a9]' : 'bg-white text-amber-100'}`}>
-    <div className={`min-h-screen bg-black text-[#f5d0a9]`}>
+    <div className={`min-h-screen bg-[#121212] text-[#f5d0a9]`}>
       <Header theme={theme} toggleTheme={toggleTheme} />
       <div className="mx-auto p-1">
         <Tabs
