@@ -20,7 +20,7 @@ const Stats: React.FC<StatsProps> = ({
       <h2 className="text-lg font-semibold text-gray-800 dark:text-[#f5d0a9]">
         Statistics
       </h2>
-      <table className="w-full mt-2">
+      <table className="w-full">
         <tbody>
           <tr className="bg-gray-200 dark:bg-gray-700">
             <td className="text-gray-700 dark:text-gray-300">Words:</td>
