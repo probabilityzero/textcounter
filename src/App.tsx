@@ -98,7 +98,7 @@ const App: React.FC = () => {
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'bg-black text-[#f5d0a9]' : 'bg-white text-amber-100'}`}>
       <Header theme={theme} toggleTheme={toggleTheme} />
-      <div className="mx-auto">
+      <div className="mx-auto p-1">
         <Tabs
           tabs={tabs}
           activeTab={activeTab}
@@ -113,7 +113,7 @@ const App: React.FC = () => {
               onChange={(value) => updateTabContent(activeTab, value)}
             />
           </div>
-          <div className="md:col-span-1 p-3">
+          <div className="md:col-span-1 p-2">
             <Stats
               wordCount={wordCount}
               sentenceCount={sentenceCount}

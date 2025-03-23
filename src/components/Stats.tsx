@@ -16,7 +16,7 @@ const Stats: React.FC<StatsProps> = ({
   readingTime,
 }) => {
   return (
-    <div className="p-4 bg-gray-100 dark:bg-gray-800 mt-4 rounded-md">
+    <div className="p-4 bg-gray-100 dark:bg-gray-800 mt-2 rounded-md">
       <h2 className="text-lg font-semibold text-gray-800 dark:text-[#f5d0a9]">
         Statistics
       </h2>
