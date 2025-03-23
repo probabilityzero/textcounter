@@ -1,18 +1,35 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import Tabs from './components/Tabs.vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faSun, faMoon); // Add sun and moon icons to the library
+library.add(faSun, faMoon);
 
 const isDarkTheme = ref(true);
 
 const toggleTheme = () => {
   isDarkTheme.value = !isDarkTheme.value;
+  localStorage.setItem('theme', isDarkTheme.value ? 'dark' : 'light');
+  applyTheme();
 };
+
+const applyTheme = () => {
+  const theme = isDarkTheme.value ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+};
+
+onMounted(() => {
+  const storedTheme = localStorage.getItem('theme');
+  if (storedTheme) {
+    isDarkTheme.value = storedTheme === 'dark';
+  } else {
+    isDarkTheme.value = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  applyTheme();
+});
 
 const appClasses = computed(() => ({
   'app-container': true,
@@ -21,50 +38,28 @@ const appClasses = computed(() => ({
 }));
 </script>
 
-<template>
-  <div :class="appClasses">
-    <header class="app-header">
-      <div class="title-container">
-        <h2>Σ() Text Count</h2>
+    <template>
+      <div :class="appClasses" class="dark:bg-gray-800 dark:text-white min-h-screen flex flex-col">
+        <header
+          class="app-header bg-gray-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-2 flex justify-between items-center"
+        >
+          <div class="title-container flex items-center justify-center w-full">
+            <h2 class="text-xl font-semibold">Σ() Text Count</h2>
+          </div>
+
+          <div class="theme-toggle flex items-center gap-2">
+            <font-awesome-icon :icon="isDarkTheme ? 'moon' : 'sun'" />
+            <label class="toggle-container">
+              <input type="checkbox" v-model="isDarkTheme" @change="toggleTheme" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </header>
+        <Tabs />
       </div>
+    </template>
 
-      <div class="theme-toggle">
-        <font-awesome-icon :icon="isDarkTheme ? 'moon' : 'sun'" />
-        <label class="toggle-container">
-          <input type="checkbox" v-model="isDarkTheme" @change="toggleTheme" />
-          <span class="slider"></span>
-        </label>
-      </div>
-    </header>
-    <Tabs />
-  </div>
-</template>
-
-<style scoped>
-/* General App Container Styles */
-.app-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Header Styles */
-.app-header {
-  background-color: var(--vscode-header-background);
-  color: var(--vscode-header-foreground);
-  padding: 5px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--vscode-border-color);
-}
-
-.title-container {
-  display: flex;
-  align-items: center;
-}
-
+    <style scoped>
 /* Theme Toggle Button Styles */
 .theme-toggle {
   display: flex;
@@ -72,19 +67,22 @@ const appClasses = computed(() => ({
   gap: 10px;
 }
 
+/* The switch - the box around the slider */
 .toggle-container {
   position: relative;
   display: inline-block;
   width: 60px;
-  height: 30px;
+  height: 34px;
 }
 
+/* Hide default HTML checkbox */
 .toggle-container input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
+/* The slider - the moving part */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -93,47 +91,42 @@ const appClasses = computed(() => ({
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  border-radius: 30px;
-  transition: background-color 0.3s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
   position: absolute;
   content: '';
-  height: 20px;
-  width: 20px;
-  left: 5px;
-  bottom: 5px;
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
   background-color: white;
-  border-radius: 50%;
-  transition: transform 0.3s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #555;
+  background-color: #66bb6a;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #66bb6a;
 }
 
 input:checked + .slider:before {
-  transform: translateX(30px);
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
 
-/* Dark Theme Variables */
-.dark-theme {
-  --vscode-background: #1e1e1e;
-  --vscode-foreground: #d4d4d4;
-  --vscode-button-background: #0e639c;
-  --vscode-button-hover-background: #1177bb;
-  --vscode-header-background: #333333;
-  --vscode-header-foreground: #ffffff;
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
 }
 
-/* Light Theme Variables */
-.light-theme {
-  --vscode-background: #ffffff;
-  --vscode-foreground: #333333;
-  --vscode-button-background: #4CAF50;
-  --vscode-button-hover-background: #66BB6A;
-  --vscode-header-background: #eeeeee;
-  --vscode-header-foreground: #333333;
+.slider.round:before {
+  border-radius: 50%;
 }
 </style>
