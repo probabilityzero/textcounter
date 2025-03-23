@@ -10,8 +10,8 @@ interface MostUsedWordsProps {
           </h2>
           <ul className="mt-2">
             {mostUsedWords.map((item, index) => (
-              <li key={index} className="text-gray-700 justify-between px-5 py-1 dark:text-gray-300">
-                {item.word} <span className="font-medium justify-end text-gray-900 dark:text-gray-100">{item.count}</span>
+              <li key={index} className="text-gray-700 justify-between items-center flex px-5 py-1 dark:text-gray-300">
+               <span> {item.word}</span> <span className="font-medium text-gray-900 dark:text-gray-100">{item.count}</span>
               </li>
             ))}
           </ul>

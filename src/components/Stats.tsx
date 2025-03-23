@@ -21,27 +21,27 @@ const Stats: React.FC<StatsProps> = ({
         Stats
       </h2>
       <div className="flex flex-col">
-        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-md">
+        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-sm">
           <span className="text-gray-700 dark:text-gray-300">Words</span>
           <span className="font-medium text-gray-900 dark:text-gray-100">{wordCount}</span>
         </div>
-        <div className="flex justify-between items-center px-4 py-1 rounded-md">
+        <div className="flex justify-between items-center px-4 py-1 rounded-sm">
           <span className="text-gray-700 dark:text-gray-300">Sentences</span>
           <span className="font-medium text-gray-900 dark:text-gray-100">{sentenceCount}</span>
         </div>
-        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-md">
+        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-sm">
           <span className="text-gray-700 dark:text-gray-300">Paragraphs</span>
           <span className="font-medium text-gray-900 dark:text-gray-100">{paragraphCount}</span>
         </div>
-        <div className="flex justify-between items-center px-4 py-1 rounded-md">
+        <div className="flex justify-between items-center px-4 py-1 rounded-sm">
           <span className="text-gray-700 dark:text-gray-300">Characters</span>
           <span className="font-medium text-gray-900 dark:text-gray-100">{characterCount}</span>
         </div>
-        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-md">
+        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-sm">
           <span className="text-gray-700 dark:text-gray-300">Spaces</span>
           <span className="font-medium text-gray-900 dark:text-gray-100">{spaceCount}</span>
         </div>
-        <div className="flex justify-between items-center px-4 py-1 rounded-md">
+        <div className="flex justify-between items-center px-4 py-1 rounded-sm">
           <span className="text-gray-700 dark:text-gray-300">Reading Time</span>
           <span className="font-medium text-gray-900 dark:text-gray-100">{readingTime} mins</span>
         </div>
