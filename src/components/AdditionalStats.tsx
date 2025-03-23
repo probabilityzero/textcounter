@@ -16,7 +16,7 @@ const AdditionalStats: React.FC<AdditionalStatsProps> = ({
   return (
     <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-md mt-4">
       <h2 className="text-lg font-semibold text-gray-800 dark:text-[#f5d0a9]">
-        Additional Statistics
+        More Stats
       </h2>
       <table className="w-full mt-2">
         <tbody>

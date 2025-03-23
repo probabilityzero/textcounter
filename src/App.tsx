@@ -98,7 +98,7 @@ const App: React.FC = () => {
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'bg-black text-[#f5d0a9]' : 'bg-white text-amber-100'}`}>
       <Header theme={theme} toggleTheme={toggleTheme} />
-      <div className="mx-auto px-0 py-8">
+      <div className="mx-auto p-2">
         <Tabs
           tabs={tabs}
           activeTab={activeTab}
@@ -106,14 +106,14 @@ const App: React.FC = () => {
           addTab={addTab}
           closeTab={closeTab}
         />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3">
           <div className="md:col-span-2">
             <Textarea
               content={activeTabContent}
               onChange={(value) => updateTabContent(activeTab, value)}
             />
           </div>
-          <div className="md:col-span-1">
+          <div className="md:col-span-1 p-3 gap-3">
             <Stats
               wordCount={wordCount}
               sentenceCount={sentenceCount}

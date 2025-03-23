@@ -8,7 +8,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
   return (
     <header className="py-4 px-6 flex items-center justify-between bg-gray-200 dark:bg-black border-b border-gray-300 dark:border-gray-900">
-      <h1 className="text-2xl font-bold text-gray-800 dark:text-[#f5d0a9] font-serif">
+      <h1 className="text-2xl font-light text-gray-800 dark:text-[#f5d0a9] bg-orange-50 dark:bg-black font-serif justify-center">
         Σ() Text Count
       </h1>
       <button
