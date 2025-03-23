@@ -23,27 +23,27 @@ const Stats: React.FC<StatsProps> = ({
       <table className="w-full">
         <tbody>
           <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
-            <td className="text-gray-700 dark:text-gray-300">Word:</td>
+            <td className="text-gray-700 dark:text-gray-300">Word</td>
             <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{wordCount}</td>
           </tr>
           <tr className="px-2">
-            <td className="text-gray-700 dark:text-gray-300">Sentence:</td>
+            <td className="text-gray-700 dark:text-gray-300">Sentence</td>
             <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{sentenceCount}</td>
           </tr>
           <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
-            <td className="text-gray-700 dark:text-gray-300">Paragraph:</td>
+            <td className="text-gray-700 dark:text-gray-300">Paragraph</td>
             <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{paragraphCount}</td>
           </tr>
           <tr className="px-2">
-            <td className="text-gray-700 dark:text-gray-300">Character:</td>
+            <td className="text-gray-700 dark:text-gray-300">Character</td>
             <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{characterCount}</td>
           </tr>
           <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
-            <td className="text-gray-700 dark:text-gray-300">Space:</td>
+            <td className="text-gray-700 dark:text-gray-300">Spaces</td>
             <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{spaceCount}</td>
           </tr>
           <tr className="px-2">
-            <td className="text-gray-700 dark:text-gray-300">Reading Tim:</td>
+            <td className="text-gray-700 dark:text-gray-300">Reading Time</td>
             <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{readingTime} mins</td>
           </tr>
         </tbody>
