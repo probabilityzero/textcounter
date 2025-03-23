@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Menlo', 'Consolas', 'Courier New', monospace; /* VS Code-like font */
+}
+
+#app {
+  margin: 0; /* Remove margin */
+  padding: 0; /* Remove padding, handle it inside components */
+  text-align: center;
+  width: 100%; /* Use full width */
+  height: 100vh;
+}
+
+button {
+  border-radius: 4px; /* Less rounded buttons */
+  border: 1px solid var(--vscode-border-color);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+button:hover {
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
