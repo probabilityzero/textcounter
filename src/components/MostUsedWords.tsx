@@ -11,7 +11,7 @@ interface MostUsedWordsProps {
           <ul className="mt-2">
             {mostUsedWords.map((item, index) => (
               <li key={index} className="text-gray-700 dark:text-gray-300">
-                {item.word}: <span className="font-medium text-gray-900 dark:text-gray-100">{item.count}</span>
+                {item.word} <span className="font-medium justify-end text-gray-900 dark:text-gray-100">{item.count}</span>
               </li>
             ))}
           </ul>
