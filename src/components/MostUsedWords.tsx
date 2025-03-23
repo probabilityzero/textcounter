@@ -4,7 +4,7 @@ interface MostUsedWordsProps {
 
     const MostUsedWords: React.FC<MostUsedWordsProps> = ({ mostUsedWords }) => {
       return (
-        <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-md mt-4">
+        <div className="p-4 bg-gray-100 dark:bg-gray-800 mt-3 rounded-md">
           <h2 className="text-lg font-semibold text-gray-800 dark:text-[#f5d0a9]">
             Most Used Words
           </h2>
