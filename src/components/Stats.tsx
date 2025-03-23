@@ -20,34 +20,32 @@ const Stats: React.FC<StatsProps> = ({
       <h2 className="text-lg font-semibold text-gray-800 dark:text-[#f5d0a9]">
         Stats
       </h2>
-      <table className="w-full">
-        <tbody>
-          <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
-            <td className="text-gray-700 dark:text-gray-300">Word</td>
-            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{wordCount}</td>
-          </tr>
-          <tr className="px-2">
-            <td className="text-gray-700 dark:text-gray-300">Sentence</td>
-            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{sentenceCount}</td>
-          </tr>
-          <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
-            <td className="text-gray-700 dark:text-gray-300">Paragraph</td>
-            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{paragraphCount}</td>
-          </tr>
-          <tr className="px-2">
-            <td className="text-gray-700 dark:text-gray-300">Character</td>
-            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{characterCount}</td>
-          </tr>
-          <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
-            <td className="text-gray-700 dark:text-gray-300">Spaces</td>
-            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{spaceCount}</td>
-          </tr>
-          <tr className="px-2">
-            <td className="text-gray-700 dark:text-gray-300">Reading Time</td>
-            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{readingTime} mins</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="flex flex-col">
+        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-2 rounded-md">
+          <span className="text-gray-700 dark:text-gray-300">Words:</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100">{wordCount}</span>
+        </div>
+        <div className="flex justify-between items-center px-2 rounded-md">
+          <span className="text-gray-700 dark:text-gray-300">Sentences:</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100">{sentenceCount}</span>
+        </div>
+        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-2 rounded-md">
+          <span className="text-gray-700 dark:text-gray-300">Paragraphs:</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100">{paragraphCount}</span>
+        </div>
+        <div className="flex justify-between items-center px-2 rounded-md">
+          <span className="text-gray-700 dark:text-gray-300">Characters:</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100">{characterCount}</span>
+        </div>
+        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-2 rounded-md">
+          <span className="text-gray-700 dark:text-gray-300">Spaces:</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100">{spaceCount}</span>
+        </div>
+        <div className="flex justify-between items-center px-2 rounded-md">
+          <span className="text-gray-700 dark:text-gray-300">Reading Time:</span>
+          <span className="font-medium text-gray-900 dark:text-gray-100">{readingTime} mins</span>
+        </div>
+      </div>
     </div>
   );
 };
