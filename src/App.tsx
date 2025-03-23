@@ -114,7 +114,7 @@ const App: React.FC = () => {
               onChange={(value) => updateTabContent(activeTab, value)}
             />
           </div>
-          <div className="md:col-span-1 p-2 gap-2">
+          <div className="md:col-span-1 p-2 gap-2 flex">
             <Stats
               wordCount={wordCount}
               sentenceCount={sentenceCount}
