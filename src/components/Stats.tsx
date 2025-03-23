@@ -22,27 +22,27 @@ const Stats: React.FC<StatsProps> = ({
       </h2>
       <table className="w-full">
         <tbody>
-          <tr className="bg-gray-200 dark:bg-gray-700">
+          <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
             <td className="text-gray-700 dark:text-gray-300">Words:</td>
             <td className="font-medium text-gray-900 dark:text-gray-100">{wordCount}</td>
           </tr>
-          <tr>
+          <tr className="px-2">
             <td className="text-gray-700 dark:text-gray-300">Sentences:</td>
             <td className="font-medium text-gray-900 dark:text-gray-100">{sentenceCount}</td>
           </tr>
-          <tr className="bg-gray-200 dark:bg-gray-700">
+          <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
             <td className="text-gray-700 dark:text-gray-300">Paragraphs:</td>
             <td className="font-medium text-gray-900 dark:text-gray-100">{paragraphCount}</td>
           </tr>
-          <tr>
+          <tr className="px-2">
             <td className="text-gray-700 dark:text-gray-300">Characters:</td>
             <td className="font-medium text-gray-900 dark:text-gray-100">{characterCount}</td>
           </tr>
-          <tr className="bg-gray-200 dark:bg-gray-700">
+          <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
             <td className="text-gray-700 dark:text-gray-300">Spaces:</td>
             <td className="font-medium text-gray-900 dark:text-gray-100">{spaceCount}</td>
           </tr>
-          <tr>
+          <tr className="px-2">
             <td className="text-gray-700 dark:text-gray-300">Reading Time:</td>
             <td className="font-medium text-gray-900 dark:text-gray-100">{readingTime} mins</td>
           </tr>
