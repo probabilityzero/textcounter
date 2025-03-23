@@ -207,7 +207,6 @@ watch(tabs, saveTabsToCookie, { deep: true });
 
 .tab-content {
   border: 1px solid var(--vscode-border-color);
-  padding: 20px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
