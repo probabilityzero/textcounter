@@ -22,23 +22,23 @@ const AdditionalStats: React.FC<AdditionalStatsProps> = ({
         <tbody>
           <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
             <td className="text-gray-700 dark:text-gray-300">Unique Words</td>
-            <td className="font-medium text-gray-900 dark:text-gray-100">{uniqueWordCount}</td>
+            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{uniqueWordCount}</td>
           </tr>
           <tr className="px-2">
             <td className="text-gray-700 dark:text-gray-300">Avg. Word Length</td>
-            <td className="font-medium text-gray-900 dark:text-gray-100">{averageWordLength.toFixed(2)}</td>
+            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{averageWordLength.toFixed(2)}</td>
           </tr>
           <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
             <td className="text-gray-700 dark:text-gray-300">Longest Word</td>
-            <td className="font-medium text-gray-900 dark:text-gray-100">{longestWord}</td>
+            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{longestWord}</td>
           </tr>
           <tr className="px-2">
             <td className="text-gray-700 dark:text-gray-300">Shortest Word</td>
-            <td className="font-medium text-gray-900 dark:text-gray-100">{shortestWord}</td>
+            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{shortestWord}</td>
           </tr>
           <tr className="bg-gray-200 dark:bg-gray-700 rounded-md px-2">
             <td className="text-gray-700 dark:text-gray-300">Lexical Density</td>
-            <td className="font-medium text-gray-900 dark:text-gray-100">{lexicalDensity.toFixed(2)}%</td>
+            <td className="font-medium justify-end text-gray-900 dark:text-gray-100">{lexicalDensity.toFixed(2)}%</td>
           </tr>
         </tbody>
       </table>
