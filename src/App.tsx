@@ -229,9 +229,9 @@ const App: React.FC = () => {
         </div>
         
         {/* Desktop layout - 3:1 ratio */}
-        <div className="hidden md:flex gap-4">
+        <div className="hidden md:grid col-span-4 gap-4">
           {/* Editor row (full width) */}
-          <div className="flex-1">
+          <div className="col-span-3">
             <Textarea
               content={activeTabContent}
               onChange={(value) => updateTabContent(activeTab, value)}
@@ -239,7 +239,8 @@ const App: React.FC = () => {
           </div>
           
           {/* Stats and visualization row (full width, divided into 3:1) */}
-          <div className="flex-3 grid grid-rows-2">
+          <div className="col-span-1">
+            <div className='grid grid-rows-2 gap-4'>
             <div className="">
               <StatsTabs
                 wordCount={wordCount}
@@ -267,6 +268,7 @@ const App: React.FC = () => {
             </div>
             <div className="col-span-1">
               <Visualization wordFrequency={wordFrequency} />
+            </div>
             </div>
           </div>
         </div>

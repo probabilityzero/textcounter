@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, handleFileUpload })
   };
 
   return (
-    <header className="py-3 sm:py-4 px-3 sm:px-6 flex items-center justify-between text-gray-100 dark:bg-gray-900 border-b border-border-color sticky top-0 z-10">
+    <header className="py-3 px-3 sm:px-6 flex items-center justify-between text-gray-100 dark:bg-gray-800 border-b border-border-color sticky top-0 z-10">
       <div className="flex items-center">
         <h1 className="text-xl sm:text-2xl font-light text-text-primary font-serif">
           Σ() Text Analysis
