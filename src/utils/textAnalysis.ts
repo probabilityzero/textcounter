@@ -44,16 +44,18 @@ export const analyzeText = (text: string) => {
     longestWord = words.reduce((longest, current) => 
       current.length > longest.length ? current : longest, '');
     
-    // Fix for shortestWord - prevent undefined values
+    // Fix for shortestWord - use a simpler, more direct approach
     if (words.length === 1) {
       shortestWord = words[0];
     } else {
-      // Using a definite assignment with non-nullable first word
-      // and a type-safe reducer function
-      shortestWord = words.reduce((shortest, current) => {
-        // Making sure shortest is never undefined
-        return (shortest && current.length < shortest.length) ? current : (shortest || current);
-      }, words[0] || '');
+      // Use a traditional for loop instead of reduce to avoid TypeScript issues
+      let shortest = words[0];
+      for (let i = 1; i < words.length; i++) {
+        if (words[i].length < shortest.length) {
+          shortest = words[i];
+        }
+      }
+      shortestWord = shortest;
     }
   }
 

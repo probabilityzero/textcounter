@@ -1,6 +1,8 @@
 :root {
   --primary: #f5d0a9;
   --primary-dark: #e6b389;
+  --primary-header-light: #f5f5f5;
+  --primary-header-dark: #121212;
   --bg-light: #ffffff;
   --bg-dark: #121212;
   --card-light: #f5f5f5;
@@ -29,6 +31,8 @@
   --text-secondary: var(--text-secondary-dark);
   --border-color: var(--border-dark);
   --text-accent: var(--primary);
+  --primary-header: var(--primary-header-dark);
+  --row-bg: rgba(255, 255, 255, 0.1);
 }
 
 /* Light mode variables */
@@ -40,6 +44,8 @@
   --text-secondary: var(--text-secondary-light);
   --border-color: var(--border-light);
   --text-accent: var(--accent);
+  --primary-header: var(--primary-header-light);
+  --row-bg: rgba(0, 0, 0, 0.05);
 }
 
 body {
@@ -56,7 +62,21 @@ body {
   background-color: var(--card-bg);
   border-radius: 0.375rem;
   box-shadow: 0 2px 8px var(--shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.stats-card.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  z-index: 100;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .stats-card:hover {
@@ -105,6 +125,13 @@ body {
   flex-wrap: wrap;
   border-bottom: 1px solid var(--border-color);
   margin-bottom: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.tab-container::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
 }
 
 .tab {
@@ -115,6 +142,7 @@ body {
   display: flex;
   align-items: center;
   margin-right: 2px;
+  white-space: nowrap;
 }
 
 .tab.active {
@@ -185,7 +213,8 @@ body {
 .stats-tabs {
   display: flex;
   border-bottom: 1px solid var(--border-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  position: relative;
 }
 
 .stats-tab {
@@ -193,10 +222,28 @@ body {
   cursor: pointer;
   transition: all 0.2s;
   border-bottom: 2px solid transparent;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .stats-tab.active {
   border-bottom: 2px solid var(--accent);
+  color: var(--text-accent);
+}
+
+.expand-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.expand-btn:hover {
   color: var(--text-accent);
 }
 
@@ -226,15 +273,29 @@ body {
   justify-content: center;
   border-radius: 50%;
   transition: background-color 0.2s;
+  color: var(--text-primary);
 }
 
 .theme-toggle:hover {
   background-color: var(--alt-row-bg);
 }
 
+.readability-score {
+  background: linear-gradient(to right, #e74c3c, #f5d0a9, #2ecc71);
+}
+
+.topic-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--row-bg);
+  border-radius: 9999px;
+  color: var(--text-primary);
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
   .stats-card {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
   
   .tab {
@@ -249,4 +310,46 @@ body {
   .stat-row {
     padding: 0.375rem 0.75rem;
   }
+  
+  .layout-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .content-container {
+    order: 2;
+  }
+  
+  .stats-container {
+    order: 1;
+    margin-bottom: 1rem;
+  }
+  
+  .text-area {
+    height: 16rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .text-area {
+    height: 32rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .text-area {
+    height: 40rem;
+  }
+}
+
+/* Overlay for expanded stats card */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+  animation: fadeIn 0.2s ease-in-out;
 }

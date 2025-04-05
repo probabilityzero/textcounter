@@ -4,24 +4,146 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/src/assets/icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A real-time text analysis tool that provides word count, sentence count, paragraph count, reading time, and more." />
-    <meta name="keywords" content="text analysis, word count, sentence count, reading time, writing tool, online editor" />
-    <meta name="author" content="Prime" />
-    <title>Σ() Text Count</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>Σ() Text Analysi</title>
+    <meta name="title" content="Σ() Text Analysis Tool">
+    <meta name="description" content="A simple real-time text analysis tool that provides word count, reading time, readability metrics, sentiment analysis, and more. Perfect for writers, students, and content creators.">
+    <meta name="keywords" content="text analysis, word count, sentence count, reading time, writing tool, online editor, readability, sentiment analysis, lexical density">
+    <meta name="author" content="Tarique">
+    <link rel="canonical" href="https://textanalysis.tariique.me/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://textanalysis.tariique.me/">
+    <meta property="og:title" content="Σ() Text Analysis Tool">
+    <meta property="og:description" content="A simple real-time text analysis tool that provides word count, reading time, readability metrics, sentiment analysis, and more.">
+    <meta property="og:image" content="https://www.wallpaperflare.com/static/537/26/439/minimalism-word-clouds-typography-good-wallpaper.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://textanalysis.tariique.me/">
+    <meta property="twitter:title" content="Σ() Text Analysis Tool">
+    <meta property="twitter:description" content="A simple real-time text analysis tool that provides word count, reading time, readability metrics, sentiment analysis, and more.">
+    <meta property="twitter:image" content="https://www.wallpaperflare.com/static/537/26/439/minimalism-word-clouds-typography-good-wallpaper.jpg">
+    
+    <!-- App Metadata -->
+    <meta name="application-name" content="Text Analysis">
+    <meta name="apple-mobile-web-app-title" content="Text Analysis">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#121212">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data - JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Σ() Text Analysis",
+        "url": "https://textanalysis.tariique.me/",
+        "description": "A powerful real-time text analysis tool that provides word count, reading time, readability metrics, sentiment analysis, and more.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Tarique",
+          "url": "https://tarique.me"
+        }
+      }
+    </script>
+    
     <style>
       body {
         font-family: 'Inter', sans-serif; /* Inter for body text */
       }
-      h1 {
+      h1, .font-serif {
         font-family: 'Playfair Display', serif; /* Playfair Display for headings */
+      }
+      
+      /* Add a preloader to avoid FOUC (Flash of Unstyled Content) */
+      .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-in-out;
+      }
+      
+      .dark .preloader {
+        background-color: #121212;
+      }
+      
+      .preloader.fade-out {
+        opacity: 0;
+      }
+      
+      .spinner {
+        border: 3px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border-top: 3px solid #f5904c;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
     </style>
   </head>
   <body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+      <div class="spinner"></div>
+    </div>
+    
     <div id="root"></div>
+    
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Remove preloader after content loads -->
+    <script>
+      window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 500);
+      });
+      
+      // Check if the user prefers dark mode
+      if (localStorage.getItem('color-theme') === 'dark' || 
+          (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+    
+    <!-- Inform users about cookies if needed -->
+    <script>
+      if (!localStorage.getItem('cookie-consent-shown')) {
+        // Create and display cookie notice if needed
+        setTimeout(() => {
+          // Optional: Add cookie consent banner here if required for your region
+          localStorage.setItem('cookie-consent-shown', 'true');
+        }, 2000);
+      }
+    </script>
   </body>
 </html>

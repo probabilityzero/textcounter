@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Maximize2, Minimize2 } from 'lucide-react';
+import WordCloud from './WordCloud';
 
 interface StatsTabsProps {
   wordCount: number;
@@ -22,9 +24,20 @@ interface StatsTabsProps {
 
 const StatsTabs: React.FC<StatsTabsProps> = (props) => {
   const [activeTab, setActiveTab] = useState<string>('basic');
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
+  
+  // Format word data for the WordCloud
+  const wordCloudData = Object.entries(props.wordFrequency || {})
+    .filter(([word, count]) => count > 1 && word.length > 2)
+    .map(([text, value]) => ({ text, value }))
+    .slice(0, 50);
 
   return (
-    <div className="stats-card">
+    <div className={`stats-card ${expanded ? 'expanded' : ''}`}>
       <div className="stats-tabs">
         <button 
           className={`stats-tab ${activeTab === 'basic' ? 'active' : ''}`}
@@ -44,8 +57,23 @@ const StatsTabs: React.FC<StatsTabsProps> = (props) => {
         >
           Insights
         </button>
+        <button 
+          className={`stats-tab ${activeTab === 'visualize' ? 'active' : ''} md:hidden`}
+          onClick={() => setActiveTab('visualize')}
+        >
+          Visualize
+        </button>
+        <button 
+          className="expand-btn"
+          onClick={toggleExpand}
+          aria-label={expanded ? "Minimize stats" : "Expand stats"}
+          title={expanded ? "Minimize" : "Expand"}
+        >
+          {expanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+        </button>
       </div>
       
+      {/* Basic Stats Tab */}
       <div className={`stats-section ${activeTab === 'basic' ? 'active' : ''}`}>
         <div className="flex flex-col">
           <div className="stat-row alternate">
@@ -75,6 +103,7 @@ const StatsTabs: React.FC<StatsTabsProps> = (props) => {
         </div>
       </div>
       
+      {/* Advanced Stats Tab */}
       <div className={`stats-section ${activeTab === 'advanced' ? 'active' : ''}`}>
         <div className="flex flex-col">
           <div className="stat-row alternate">
@@ -113,12 +142,13 @@ const StatsTabs: React.FC<StatsTabsProps> = (props) => {
                 ))}
               </ul>
             ) : (
-              <p className="text-center py-1 text-sm text-gray-500 dark:text-gray-400">No words found</p>
+              <p className="text-center py-1 text-sm text-text-secondary">No words found</p>
             )}
           </div>
         </div>
       </div>
       
+      {/* Insights Tab */}
       <div className={`stats-section ${activeTab === 'insights' ? 'active' : ''}`}>
         <div className="flex flex-col">
           <div className="stat-row alternate">
@@ -131,9 +161,9 @@ const StatsTabs: React.FC<StatsTabsProps> = (props) => {
           </div>
           <div className="stat-row alternate">
             <span className="stat-label">Readability Score</span>
-            <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-row-bg rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500" 
+                className="h-full readability-score" 
                 style={{ width: `${props.readabilityScore}%` }}
               />
             </div>
@@ -143,17 +173,36 @@ const StatsTabs: React.FC<StatsTabsProps> = (props) => {
             <div className="flex flex-wrap gap-1">
               {props.topicSuggestions.length > 0 ? (
                 props.topicSuggestions.map((topic, index) => (
-                  <span key={index} className="text-xs px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-full">
+                  <span key={index} className="topic-tag">
                     {topic}
                   </span>
                 ))
               ) : (
-                <p className="text-sm text-gray-500 dark:text-gray-400">No topics detected</p>
+                <p className="text-sm text-text-secondary">No topics detected</p>
               )}
             </div>
           </div>
         </div>
       </div>
+      
+      {/* Mobile-only Visualization Tab */}
+      <div className={`stats-section md:hidden ${activeTab === 'visualize' ? 'active' : ''}`}>
+        <h3 className="text-lg font-medium mb-3 text-text-accent">Word Cloud</h3>
+        <WordCloud words={wordCloudData} />
+      </div>
+      
+      {/* Desktop-only Word Cloud (always visible below stats) */}
+      <div className="hidden md:block mt-6 pt-4 border-t border-border-color">
+        <h3 className="text-lg font-medium mb-3 text-text-accent">Word Frequency Visualization</h3>
+        <WordCloud words={wordCloudData} />
+      </div>
+      
+      {/* Show overlay when expanded */}
+      {expanded && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40" 
+             onClick={toggleExpand}
+             aria-hidden="true" />
+      )}
     </div>
   );
 };

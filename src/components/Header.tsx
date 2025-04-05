@@ -30,20 +30,20 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
   };
 
   return (
-    <header className="py-4 px-6 flex items-center justify-between bg-gray-200 dark:bg-[#090909] border-b border-gray-300 dark:border-gray-900">
+    <header className="py-3 sm:py-4 px-3 sm:px-6 flex items-center justify-between bg-primary-header border-b border-border-color sticky top-0 z-10">
       <div className="flex items-center">
-        <h1 className="text-2xl font-light text-gray-800 dark:text-[#ddcdbc] font-serif">
-          Σ() Text Count
+        <h1 className="text-xl sm:text-2xl font-light text-text-primary font-serif">
+          Σ() Text Analysis
         </h1>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-1 sm:space-x-2">
         <button
           onClick={exportAsText}
           className="theme-toggle"
           aria-label="Export as Text"
           title="Export as Text"
         >
-          <Download size={20} />
+          <Download size={18} className="sm:size-20" />
         </button>
         <button
           onClick={toggleTheme}
@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
           aria-label="Toggle Theme"
           title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         >
-          {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          {theme === 'dark' ? <Sun size={18} className="sm:size-20" /> : <Moon size={18} className="sm:size-20" />}
         </button>
       </div>
     </header>
