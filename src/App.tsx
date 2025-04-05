@@ -125,10 +125,6 @@ const App: React.FC = () => {
     wordFrequency,
   } = analyzeTextEnhanced(activeTabContent);
 
-  const toggleStatsExpansion = () => {
-    setExpandedStats(!expandedStats);
-  };
-
   return (
     <div className="min-h-screen">
       <Header 
@@ -154,8 +150,8 @@ const App: React.FC = () => {
           updateTabContent={(content) => updateTabContent(activeTab, content)}
         />
         
-        {/* Mobile layout */}
-        <div className="md:hidden layout-container">
+        <div className="md:hidden">
+          {/* 1. Text area comes first */}
           <div className="content-container mb-4">
             <Textarea
               content={activeTabContent}
@@ -163,6 +159,7 @@ const App: React.FC = () => {
             />
           </div>
           
+          {/* 2. Stats container comes second */}
           <div className="stats-container mb-4">
             <StatsTabs
               wordCount={wordCount}
@@ -188,13 +185,17 @@ const App: React.FC = () => {
               wordFrequency={wordFrequency}
             />
           </div>
-          <Visualization wordFrequency={wordFrequency} />
+          
+          {/* 3. Visualization comes last */}
+          <div className="mb-4">
+            <Visualization wordFrequency={wordFrequency} />
+          </div>
         </div>
         
         {/* Desktop layout - 3:1 ratio */}
-        <div className="hidden md:block">
+        <div className="hidden md:flex gap-4">
           {/* Editor row (full width) */}
-          <div className="mb-4">
+          <div className="flex-3">
             <Textarea
               content={activeTabContent}
               onChange={(value) => updateTabContent(activeTab, value)}
@@ -202,8 +203,8 @@ const App: React.FC = () => {
           </div>
           
           {/* Stats and visualization row (full width, divided into 3:1) */}
-          <div className="grid grid-cols-4 gap-4">
-            <div className="col-span-3">
+          <div className="flex-1 grid grid-rows-2">
+            <div className="">
               <StatsTabs
                 wordCount={wordCount}
                 sentenceCount={sentenceCount}

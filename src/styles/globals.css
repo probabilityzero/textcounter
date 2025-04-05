@@ -526,3 +526,29 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* Add these styles for better organization of text tools */
+
+.text-tools-container h3 {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 640px) {
+  .text-tools-container > div {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  
+  .text-tools-container > div > div {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+}
+
+/* Success state for copy button */
+.bg-green-500 {
+  background-color: #10b981;
+}
