@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   X, Plus, TextQuote, ArrowDownAZ, ArrowUpAZ, 
   Scissors, Replace, FileDown, Copy, Trash, Settings2
@@ -28,6 +28,8 @@ const Tabs: React.FC<TabsProps> = ({
   toolsOpen,
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   // Quick text operations
   const quickTools = [
@@ -60,6 +62,25 @@ const Tabs: React.FC<TabsProps> = ({
       tooltip: 'Trim whitespace'
     }
   ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current && 
+        !dropdownRef.current.contains(event.target as Node) &&
+        menuButtonRef.current && 
+        !menuButtonRef.current.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // File operations
   const exportAsText = () => {
@@ -119,9 +140,9 @@ const Tabs: React.FC<TabsProps> = ({
     setShowDropdown(false);
   };
 
-  // Close dropdown when clicking outside
-  const handleClickOutside = () => {
-    setShowDropdown(false);
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent event from bubbling up
+    setShowDropdown(!showDropdown);
   };
 
   return (
@@ -164,7 +185,10 @@ const Tabs: React.FC<TabsProps> = ({
           {quickTools.map((tool) => (
             <button
               key={tool.name}
-              onClick={tool.action}
+              onClick={(e) => {
+                e.stopPropagation();
+                tool.action();
+              }}
               className="quick-tool-btn"
               title={tool.tooltip}
             >
@@ -176,8 +200,9 @@ const Tabs: React.FC<TabsProps> = ({
         {/* File operations dropdown */}
         <div className="relative ml-2">
           <button 
+            ref={menuButtonRef}
             className="tab-menu-btn"
-            onClick={() => setShowDropdown(!showDropdown)}
+            onClick={toggleDropdown}
             aria-label="File operations"
             aria-expanded={showDropdown}
             aria-haspopup="menu"
@@ -186,44 +211,45 @@ const Tabs: React.FC<TabsProps> = ({
           </button>
           
           {showDropdown && (
-            <>
-              <div 
-                className="fixed inset-0 z-10" 
-                onClick={handleClickOutside}
-              ></div>
-              <div className="dropdown-menu">
-                <button 
-                  className="dropdown-item" 
-                  onClick={exportAsText}
-                >
-                  <FileDown size={16} />
-                  <span>Export as Text</span>
-                </button>
-                <button 
-                  className="dropdown-item"
-                  onClick={copyToClipboard}
-                  id="copy-button"
-                >
-                  <Copy size={16} />
-                  <span>Copy All</span>
-                </button>
-                <button 
-                  className="dropdown-item"
-                  onClick={clearText}
-                >
-                  <Trash size={16} />
-                  <span>Clear Text</span>
-                </button>
-                <div className="dropdown-divider"></div>
-                <button 
-                  className="dropdown-item"
-                  onClick={toggleTools}
-                >
-                  <Settings2 size={16} />
-                  <span>All Tools {toolsOpen ? '(Close)' : ''}</span>
-                </button>
-              </div>
-            </>
+            <div 
+              ref={dropdownRef}
+              className="dropdown-menu" 
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                className="dropdown-item" 
+                onClick={exportAsText}
+              >
+                <FileDown size={16} />
+                <span>Export as Text</span>
+              </button>
+              <button 
+                className="dropdown-item"
+                onClick={copyToClipboard}
+                id="copy-button"
+              >
+                <Copy size={16} />
+                <span>Copy All</span>
+              </button>
+              <button 
+                className="dropdown-item"
+                onClick={clearText}
+              >
+                <Trash size={16} />
+                <span>Clear Text</span>
+              </button>
+              <div className="dropdown-divider"></div>
+              <button 
+                className="dropdown-item"
+                onClick={() => {
+                  toggleTools();
+                  setShowDropdown(false);
+                }}
+              >
+                <Settings2 size={16} />
+                <span>All Tools {toolsOpen ? '(Close)' : ''}</span>
+              </button>
+            </div>
           )}
         </div>
       </div>
