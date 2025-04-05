@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface StatsProps {
   wordCount: number;
   sentenceCount: number;
@@ -16,34 +18,32 @@ const Stats: React.FC<StatsProps> = ({
   readingTime,
 }) => {
   return (
-    <div className="p-4 bg-gray-100 dark:bg-gray-800 mt-1 rounded-md">
-      <h2 className="text-lg font-semibold text-gray-800 dark:text-[#f5d0a9]">
-        Stats
-      </h2>
+    <div className="stats-card">
+      <h2 className="stats-title">Basic Stats</h2>
       <div className="flex flex-col">
-        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Words</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{wordCount}</span>
+        <div className="stat-row alternate">
+          <span className="stat-label">Words</span>
+          <span className="stat-value">{wordCount}</span>
         </div>
-        <div className="flex justify-between items-center px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Sentences</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{sentenceCount}</span>
+        <div className="stat-row">
+          <span className="stat-label">Sentences</span>
+          <span className="stat-value">{sentenceCount}</span>
         </div>
-        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Paragraphs</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{paragraphCount}</span>
+        <div className="stat-row alternate">
+          <span className="stat-label">Paragraphs</span>
+          <span className="stat-value">{paragraphCount}</span>
         </div>
-        <div className="flex justify-between items-center px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Characters</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{characterCount}</span>
+        <div className="stat-row">
+          <span className="stat-label">Characters</span>
+          <span className="stat-value">{characterCount}</span>
         </div>
-        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Spaces</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{spaceCount}</span>
+        <div className="stat-row alternate">
+          <span className="stat-label">Spaces</span>
+          <span className="stat-value">{spaceCount}</span>
         </div>
-        <div className="flex justify-between items-center px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Reading Time</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{readingTime} mins</span>
+        <div className="stat-row">
+          <span className="stat-label">Reading Time</span>
+          <span className="stat-value">{readingTime} min{readingTime !== 1 ? 's' : ''}</span>
         </div>
       </div>
     </div>

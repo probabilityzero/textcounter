@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface AdditionalStatsProps {
   uniqueWordCount: number;
   averageWordLength: number;
@@ -14,30 +16,32 @@ const AdditionalStats: React.FC<AdditionalStatsProps> = ({
   lexicalDensity,
 }) => {
   return (
-    <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-md">
-      <h2 className="text-lg font-semibold text-gray-800 dark:text-[#f5d0a9]">
-        More Stats
-      </h2>
+    <div className="stats-card">
+      <h2 className="stats-title">Advanced Stats</h2>
       <div className="flex flex-col mt-2">
-        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Unique Words</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{uniqueWordCount}</span>
+        <div className="stat-row alternate">
+          <span className="stat-label">Unique Words</span>
+          <span className="stat-value">{uniqueWordCount}</span>
         </div>
-        <div className="flex justify-between items-center px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Avg. Word Length</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{averageWordLength.toFixed(2)}</span>
+        <div className="stat-row">
+          <span className="stat-label">Avg. Word Length</span>
+          <span className="stat-value">
+            {isNaN(averageWordLength) ? '0.00' : averageWordLength.toFixed(2)}
+          </span>
         </div>
-        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Longest Word</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{longestWord}</span>
+        <div className="stat-row alternate">
+          <span className="stat-label">Longest Word</span>
+          <span className="stat-value">{longestWord || '-'}</span>
         </div>
-        <div className="flex justify-between items-center px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Shortest Word</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{shortestWord}</span>
+        <div className="stat-row">
+          <span className="stat-label">Shortest Word</span>
+          <span className="stat-value">{shortestWord || '-'}</span>
         </div>
-        <div className="flex justify-between items-center bg-gray-200 dark:bg-gray-700 px-4 py-1 rounded-sm">
-          <span className="text-gray-700 dark:text-gray-300">Lexical Density</span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">{lexicalDensity.toFixed(2)}%</span>
+        <div className="stat-row alternate">
+          <span className="stat-label">Lexical Density</span>
+          <span className="stat-value">
+            {isNaN(lexicalDensity) ? '0.00' : lexicalDensity.toFixed(2)}%
+          </span>
         </div>
       </div>
     </div>

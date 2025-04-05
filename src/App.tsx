@@ -4,13 +4,16 @@ import Tabs from './components/Tabs';
 import Textarea from './components/Textarea';
 import Stats from './components/Stats';
 import MostUsedWords from './components/MostUsedWords';
-import AdditionalStats from './components/AdditionalStats'; // Import
+import AdditionalStats from './components/AdditionalStats';
+import StatsTabs from './components/StatsTabs';
 import { analyzeText } from './utils/textAnalysis';
+import { analyzeTextEnhanced } from './utils/enhancedTextAnalysis';
+import './styles/globals.css';
 
-const getInitialTheme = () => {
+const getInitialTheme = (): 'light' | 'dark' => {
   if (typeof window !== 'undefined' && window.localStorage) {
     const storedPrefs = window.localStorage.getItem('color-theme');
-    if (typeof storedPrefs === 'string') {
+    if (typeof storedPrefs === 'string' && (storedPrefs === 'light' || storedPrefs === 'dark')) {
       return storedPrefs;
     }
 
@@ -20,21 +23,29 @@ const getInitialTheme = () => {
     }
   }
 
-  return 'light'; // light theme as the default;
+  return 'light';
 };
 
 const App: React.FC = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>(getInitialTheme);
+  const [theme, setTheme] = useState<'light' | 'dark'>(getInitialTheme());
   const [tabs, setTabs] = useState<{ id: string; title: string; content: string }[]>([
     { id: '1', title: 'Tab 1', content: '' },
   ]);
   const [activeTab, setActiveTab] = useState<string>('1');
+  const [showLegacy, setShowLegacy] = useState<boolean>(false);
 
   useEffect(() => {
     const storedTabs = localStorage.getItem('tabs');
     if (storedTabs) {
-      setTabs(JSON.parse(storedTabs));
-      setActiveTab(JSON.parse(storedTabs)[0].id); // Set the first tab as active
+      try {
+        const parsedTabs = JSON.parse(storedTabs);
+        if (Array.isArray(parsedTabs) && parsedTabs.length > 0) {
+          setTabs(parsedTabs);
+          setActiveTab(parsedTabs[0].id);
+        }
+      } catch (error) {
+        console.error("Failed to parse stored tabs:", error);
+      }
     }
   }, []);
 
@@ -42,7 +53,7 @@ const App: React.FC = () => {
     localStorage.setItem('tabs', JSON.stringify(tabs));
   }, [tabs]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -54,7 +65,7 @@ const App: React.FC = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem('color-theme', newTheme);
+      window.localStorage.setItem('color-theme', newTheme);
     }
   };
 
@@ -80,6 +91,8 @@ const App: React.FC = () => {
   };
 
   const activeTabContent = tabs.find((tab) => tab.id === activeTab)?.content || '';
+  
+  // Basic text analysis
   const {
     wordCount,
     sentenceCount,
@@ -92,14 +105,22 @@ const App: React.FC = () => {
     averageWordLength,
     longestWord,
     shortestWord,
-    lexicalDensity, // Added
+    lexicalDensity,
   } = analyzeText(activeTabContent);
+  
+  // Enhanced text analysis
+  const {
+    sentiment,
+    readability,
+    readabilityScore,
+    topicSuggestions,
+    wordFrequency,
+  } = analyzeTextEnhanced(activeTabContent);
 
   return (
-    // <div className={`min-h-screen ${theme === 'dark' ? 'bg-black text-[#f5d0a9]' : 'bg-white text-amber-100'}`}>
-    <div className={`min-h-screen bg-[#121212] text-[#f5d0a9]`}>
+    <div className="min-h-screen">
       <Header theme={theme} toggleTheme={toggleTheme} />
-      <div className="mx-auto p-1">
+      <div className="mx-auto p-4">
         <Tabs
           tabs={tabs}
           activeTab={activeTab}
@@ -107,30 +128,63 @@ const App: React.FC = () => {
           addTab={addTab}
           closeTab={closeTab}
         />
-        <div className="grid grid-cols-1 md:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2">
             <Textarea
               content={activeTabContent}
               onChange={(value) => updateTabContent(activeTab, value)}
             />
           </div>
-          <div className="md:col-span-1 p-2 pt-1 gap-2 flex flex-col ">
-            <Stats
-              wordCount={wordCount}
-              sentenceCount={sentenceCount}
-              paragraphCount={paragraphCount}
-              characterCount={characterCount}
-              spaceCount={spaceCount}
-              readingTime={readingTime}
-            />
-            <AdditionalStats // Added
-              uniqueWordCount={uniqueWordCount}
-              averageWordLength={averageWordLength}
-              longestWord={longestWord}
-              shortestWord={shortestWord}
-              lexicalDensity={lexicalDensity}
-            />
-            <MostUsedWords mostUsedWords={mostUsedWords} />
+          <div className="md:col-span-1 flex flex-col gap-4">
+            <div className="flex justify-end mb-2">
+              <button 
+                onClick={() => setShowLegacy(!showLegacy)}
+                className="text-xs px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              >
+                {showLegacy ? "Use Modern View" : "Use Legacy View"}
+              </button>
+            </div>
+            
+            {showLegacy ? (
+              <>
+                <Stats
+                  wordCount={wordCount}
+                  sentenceCount={sentenceCount}
+                  paragraphCount={paragraphCount}
+                  characterCount={characterCount}
+                  spaceCount={spaceCount}
+                  readingTime={readingTime}
+                />
+                <AdditionalStats
+                  uniqueWordCount={uniqueWordCount}
+                  averageWordLength={averageWordLength}
+                  longestWord={longestWord}
+                  shortestWord={shortestWord}
+                  lexicalDensity={lexicalDensity}
+                />
+                <MostUsedWords mostUsedWords={mostUsedWords} />
+              </>
+            ) : (
+              <StatsTabs
+                wordCount={wordCount}
+                sentenceCount={sentenceCount}
+                paragraphCount={paragraphCount}
+                characterCount={characterCount}
+                spaceCount={spaceCount}
+                readingTime={readingTime}
+                uniqueWordCount={uniqueWordCount}
+                averageWordLength={averageWordLength}
+                longestWord={longestWord}
+                shortestWord={shortestWord}
+                lexicalDensity={lexicalDensity}
+                mostUsedWords={mostUsedWords}
+                sentiment={sentiment}
+                readability={readability}
+                readabilityScore={readabilityScore}
+                topicSuggestions={topicSuggestions}
+                wordFrequency={wordFrequency}
+              />
+            )}
           </div>
         </div>
       </div>
