@@ -125,6 +125,37 @@ const App: React.FC = () => {
     wordFrequency,
   } = analyzeTextEnhanced(activeTabContent);
 
+  // File upload handler
+  const handleFileUpload = async (file: File) => {
+    try {
+      // Read the file content
+      const text = await file.text();
+      
+      // Create a tab name from the first 6 characters of the filename
+      let fileName = file.name.replace(/\.[^/.]+$/, ""); // Remove extension
+      if (fileName.length > 6) {
+        fileName = fileName.substring(0, 6);
+      }
+      
+      // If there's already content in the active tab, create a new tab
+      if (activeTabContent.trim().length > 0) {
+        const newTabId = Date.now().toString();
+        const newTab = { id: newTabId, title: fileName, content: text };
+        setTabs([...tabs, newTab]);
+        setActiveTab(newTabId);
+      } else {
+        // Otherwise, update the current tab
+        const updatedTabs = tabs.map(tab => 
+          tab.id === activeTab ? { ...tab, title: fileName, content: text } : tab
+        );
+        setTabs(updatedTabs);
+      }
+    } catch (error) {
+      console.error('Error reading uploaded file:', error);
+      alert('Failed to read the uploaded file. Please try again.');
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <Header 
@@ -132,6 +163,7 @@ const App: React.FC = () => {
         toggleTheme={toggleTheme} 
         toggleTools={toggleTools}
         toolsOpen={toolsOpen}
+        handleFileUpload={handleFileUpload}
       />
       
       <div className="container mx-auto p-2 sm:p-4">
@@ -199,7 +231,7 @@ const App: React.FC = () => {
         {/* Desktop layout - 3:1 ratio */}
         <div className="hidden md:flex gap-4">
           {/* Editor row (full width) */}
-          <div className="flex-3">
+          <div className="flex-1">
             <Textarea
               content={activeTabContent}
               onChange={(value) => updateTabContent(activeTab, value)}
@@ -207,7 +239,7 @@ const App: React.FC = () => {
           </div>
           
           {/* Stats and visualization row (full width, divided into 3:1) */}
-          <div className="flex-1 grid grid-rows-2">
+          <div className="flex-3 grid grid-rows-2">
             <div className="">
               <StatsTabs
                 wordCount={wordCount}

@@ -211,6 +211,12 @@ body {
   box-shadow: 0 0 0 2px rgba(245, 144, 76, 0.2);
 }
 
+/* Improve textarea accessibility and focus states */
+.text-area:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .stats-tabs {
   display: flex;
   border-bottom: 1px solid var(--border-color);
@@ -279,6 +285,11 @@ body {
 
 .theme-toggle:hover {
   background-color: var(--alt-row-bg);
+}
+
+/* Add animation for the file upload button */
+.theme-toggle:active {
+  transform: scale(0.95);
 }
 
 .readability-score {
@@ -661,4 +672,15 @@ body {
   .quick-tools {
     display: none;
   }
+}
+
+/* Add a file upload feedback animation */
+@keyframes upload-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.uploading {
+  animation: upload-pulse 0.5s ease-in-out;
 }
