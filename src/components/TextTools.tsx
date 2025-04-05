@@ -277,11 +277,6 @@ const TextTools: React.FC<TextToolsProps> = ({ isOpen, activeTabContent, updateT
 
   return (
     <div className="text-tools-container bg-card-bg border-b border-border-color p-3 sm:p-4">
-      <h2 className="text-lg font-medium mb-3 text-text-accent">Text Tools</h2>
-      
-      {/* File Operations */}
-      <div className="mb-4">
-        <h3 className="text-sm font-medium mb-2 text-text-secondary">File Operations</h3>
         <div className="flex flex-wrap gap-2">
           {fileTools.map((tool) => (
             <button
@@ -298,11 +293,9 @@ const TextTools: React.FC<TextToolsProps> = ({ isOpen, activeTabContent, updateT
             </button>
           ))}
         </div>
-      </div>
       
       {/* Text Formatting */}
-      <div className="mb-4">
-        <h3 className="text-sm font-medium mb-2 text-text-secondary">Text Formatting</h3>
+      <div className="mt-4">
         <div className="flex flex-wrap gap-2">
           {formatTools.map((tool) => (
             <button

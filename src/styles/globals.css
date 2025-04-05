@@ -128,6 +128,7 @@ body {
   overflow-x: auto;
   scrollbar-width: none; /* For Firefox */
   -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  align-items: center;
 }
 
 .tab-container::-webkit-scrollbar {
@@ -551,4 +552,113 @@ body {
 /* Success state for copy button */
 .bg-green-500 {
   background-color: #10b981;
+}
+
+/* Add to your existing CSS file */
+
+/* Tabs container with tools */
+.tab-container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border-color);
+  align-items: center;
+}
+
+/* Quick tools styling */
+.quick-tools {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  border-left: 1px solid var(--border-color);
+  padding-left: 8px;
+}
+
+.quick-tool-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  padding: 6px;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.quick-tool-btn:hover {
+  background-color: var(--row-bg);
+  color: var(--text-primary);
+}
+
+/* Tab menu button */
+.tab-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 18px;
+  font-weight: bold;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tab-menu-btn:hover {
+  background-color: var(--row-bg);
+  color: var(--text-primary);
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 20;
+  width: 180px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 12px;
+  color: var(--text-primary);
+  transition: background-color 0.2s;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background-color: var(--row-bg);
+}
+
+.dropdown-item svg {
+  margin-right: 8px;
+  color: var(--text-secondary);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 4px 0;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+/* Green success text */
+.text-green-500 {
+  color: #10b981;
+}
+
+@media (max-width: 640px) {
+  .quick-tools {
+    display: none;
+  }
 }

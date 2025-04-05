@@ -141,6 +141,10 @@ const App: React.FC = () => {
           setActiveTab={setActiveTab}
           addTab={addTab}
           closeTab={closeTab}
+          activeTabContent={activeTabContent}
+          updateTabContent={(content) => updateTabContent(activeTab, content)}
+          toggleTools={toggleTools}
+          toolsOpen={toolsOpen}
         />
         
         {/* Text Tools Panel */}

@@ -1,14 +1,12 @@
 import React from 'react';
-import { Moon, Sun, Settings2 } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 
 interface HeaderProps {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
-  toggleTools: () => void;
-  toolsOpen: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, toggleTools, toolsOpen }) => {
+const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
   return (
     <header className="py-3 sm:py-4 px-3 sm:px-6 flex items-center justify-between bg-gray-100 dark:bg-gray-900 border-b border-border-color sticky top-0 z-10">
       <div className="flex items-center">
@@ -17,14 +15,6 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme, toggleTools, toolsO
         </h1>
       </div>
       <div className="flex items-center space-x-1 sm:space-x-2">
-        <button
-          onClick={toggleTools}
-          className={`theme-toggle ${toolsOpen ? 'bg-row-bg' : ''}`}
-          aria-label="Text Tools"
-          title="Text Manipulation Tools"
-        >
-          <Settings2 size={16} className="sm:size-20" />
-        </button>
         <button
           onClick={toggleTheme}
           className="theme-toggle"
