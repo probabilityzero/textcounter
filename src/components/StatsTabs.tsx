@@ -43,19 +43,19 @@ const StatsTabs: React.FC<StatsTabsProps> = (props) => {
           className={`stats-tab ${activeTab === 'basic' ? 'active' : ''}`}
           onClick={() => setActiveTab('basic')}
         >
-          Basic
-        </button>
-        <button 
-          className={`stats-tab ${activeTab === 'advanced' ? 'active' : ''}`}
-          onClick={() => setActiveTab('advanced')}
-        >
-          Advanced
+          Count
         </button>
         <button 
           className={`stats-tab ${activeTab === 'insights' ? 'active' : ''}`}
           onClick={() => setActiveTab('insights')}
         >
-          Insights
+          Analyze
+        </button>
+        <button 
+          className={`stats-tab ${activeTab === 'advanced' ? 'active' : ''}`}
+          onClick={() => setActiveTab('advanced')}
+        >
+          Stats
         </button>
         <button 
           className={`stats-tab ${activeTab === 'visualize' ? 'active' : ''} md:hidden`}
