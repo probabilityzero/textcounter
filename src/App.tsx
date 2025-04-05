@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Tabs from './components/Tabs';
 import Textarea from './components/Textarea';
 import StatsTabs from './components/StatsTabs';
+import Visualization from './components/Visualization';
+import TextTools from './components/TextTools';
 import { analyzeText } from './utils/textAnalysis';
 import { analyzeTextEnhanced } from './utils/enhancedTextAnalysis';
 import './styles/globals.css';
@@ -30,6 +32,7 @@ const App: React.FC = () => {
   ]);
   const [activeTab, setActiveTab] = useState<string>('1');
   const [expandedStats, setExpandedStats] = useState<boolean>(false);
+  const [toolsOpen, setToolsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const storedTabs = localStorage.getItem('tabs');
@@ -64,6 +67,10 @@ const App: React.FC = () => {
     if (typeof window !== 'undefined' && window.localStorage) {
       window.localStorage.setItem('color-theme', newTheme);
     }
+  };
+
+  const toggleTools = () => {
+    setToolsOpen(!toolsOpen);
   };
 
   const addTab = () => {
@@ -108,8 +115,12 @@ const App: React.FC = () => {
   // Enhanced text analysis
   const {
     sentiment,
+    sentimentScore,
+    emotionTones,
     readability,
     readabilityScore,
+    formality,
+    formalityScore,
     topicSuggestions,
     wordFrequency,
   } = analyzeTextEnhanced(activeTabContent);
@@ -120,7 +131,13 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
+        toggleTools={toggleTools}
+        toolsOpen={toolsOpen}
+      />
+      
       <div className="container mx-auto p-2 sm:p-4">
         <Tabs
           tabs={tabs}
@@ -130,44 +147,23 @@ const App: React.FC = () => {
           closeTab={closeTab}
         />
         
-        {/* Mobile-first layout with different order */}
-        <div className="layout-container">
-          <div className="stats-container md:hidden">
-            <StatsTabs
-              wordCount={wordCount}
-              sentenceCount={sentenceCount}
-              paragraphCount={paragraphCount}
-              characterCount={characterCount}
-              spaceCount={spaceCount}
-              readingTime={readingTime}
-              uniqueWordCount={uniqueWordCount}
-              averageWordLength={averageWordLength}
-              longestWord={longestWord}
-              shortestWord={shortestWord}
-              lexicalDensity={lexicalDensity}
-              mostUsedWords={mostUsedWords}
-              sentiment={sentiment}
-              readability={readability}
-              readabilityScore={readabilityScore}
-              topicSuggestions={topicSuggestions}
-              wordFrequency={wordFrequency}
-            />
-          </div>
-          
-          <div className="content-container">
+        {/* Text Tools Panel */}
+        <TextTools 
+          isOpen={toolsOpen} 
+          activeTabContent={activeTabContent}
+          updateTabContent={(content) => updateTabContent(activeTab, content)}
+        />
+        
+        {/* Mobile layout */}
+        <div className="md:hidden layout-container">
+          <div className="content-container mb-4">
             <Textarea
               content={activeTabContent}
               onChange={(value) => updateTabContent(activeTab, value)}
             />
           </div>
-        </div>
-        
-        {/* Desktop layout */}
-        <div className="hidden md:grid md:grid-cols-3 gap-4 mt-4">
-          <div className="md:col-span-2">
-            {/* Editor already shown above for mobile */}
-          </div>
-          <div className="md:col-span-1">
+          
+          <div className="stats-container mb-4">
             <StatsTabs
               wordCount={wordCount}
               sentenceCount={sentenceCount}
@@ -182,16 +178,62 @@ const App: React.FC = () => {
               lexicalDensity={lexicalDensity}
               mostUsedWords={mostUsedWords}
               sentiment={sentiment}
+              sentimentScore={sentimentScore}
+              emotionTones={emotionTones}
               readability={readability}
               readabilityScore={readabilityScore}
+              formality={formality}
+              formalityScore={formalityScore}
               topicSuggestions={topicSuggestions}
               wordFrequency={wordFrequency}
             />
           </div>
+          <Visualization wordFrequency={wordFrequency} />
+        </div>
+        
+        {/* Desktop layout - 3:1 ratio */}
+        <div className="hidden md:block">
+          {/* Editor row (full width) */}
+          <div className="mb-4">
+            <Textarea
+              content={activeTabContent}
+              onChange={(value) => updateTabContent(activeTab, value)}
+            />
+          </div>
+          
+          {/* Stats and visualization row (full width, divided into 3:1) */}
+          <div className="grid grid-cols-4 gap-4">
+            <div className="col-span-3">
+              <StatsTabs
+                wordCount={wordCount}
+                sentenceCount={sentenceCount}
+                paragraphCount={paragraphCount}
+                characterCount={characterCount}
+                spaceCount={spaceCount}
+                readingTime={readingTime}
+                uniqueWordCount={uniqueWordCount}
+                averageWordLength={averageWordLength}
+                longestWord={longestWord}
+                shortestWord={shortestWord}
+                lexicalDensity={lexicalDensity}
+                mostUsedWords={mostUsedWords}
+                sentiment={sentiment}
+                sentimentScore={sentimentScore}
+                emotionTones={emotionTones}
+                readability={readability}
+                readabilityScore={readabilityScore}
+                formality={formality}
+                formalityScore={formalityScore}
+                topicSuggestions={topicSuggestions}
+                wordFrequency={wordFrequency}
+              />
+            </div>
+            <div className="col-span-1">
+              <Visualization wordFrequency={wordFrequency} />
+            </div>
+          </div>
         </div>
       </div>
-      
-      {expandedStats && <div className="overlay" onClick={toggleStatsExpansion} />}
     </div>
   );
 };

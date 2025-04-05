@@ -79,7 +79,7 @@ const WordCloud: React.FC<WordCloudProps> = ({ words }) => {
       .padding(5)
       .rotate(() => ~~(Math.random() * 2) * 90)
       .font("Inter")
-      .fontSize(d => d.size) // This is now safe because we've typed it properly
+      .fontSize(d => d.size) 
       .on("end", draw);
     
     layout.start();

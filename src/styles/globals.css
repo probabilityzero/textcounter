@@ -353,3 +353,176 @@ body {
   z-index: 90;
   animation: fadeIn 0.2s ease-in-out;
 }
+
+/* Add these styles to your existing CSS file */
+
+.text-tools-container {
+  border-radius: 0.375rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+.tool-button {
+  transition: transform 0.1s ease;
+}
+
+.tool-button:hover {
+  transform: translateY(-1px);
+}
+
+.tool-button:active {
+  transform: translateY(1px);
+}
+
+.find-replace-container {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .text-tools-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.5rem;
+  }
+  
+  .text-tools-container::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .text-tools-container::-webkit-scrollbar-track {
+    background: var(--row-bg);
+    border-radius: 2px;
+  }
+  
+  .text-tools-container::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 2px;
+  }
+}
+
+/* Stats card with section headers in list view */
+.section-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-accent);
+  margin: 1rem 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.view-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  color: var(--text-secondary);
+  transition: color 0.2s, background-color 0.2s;
+  border-radius: 0.25rem;
+  margin: 0 0.5rem;
+}
+
+.view-toggle-btn:hover {
+  background-color: var(--row-bg);
+  color: var(--text-primary);
+}
+
+.stats-card .stats-section {
+  display: none;
+  padding: 1rem;
+}
+
+.stats-card .stats-section.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Visualization card */
+.visualization-card {
+  background-color: var(--card-bg);
+  border-radius: 0.375rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+.visualization-card.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  height: 80vh;
+  max-width: 1000px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+
+.visualization-card.expanded .viz-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.visualization-card.expanded .WordCloud {
+  height: 100%;
+}
+
+.viz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.viz-content {
+  padding: 1rem;
+}
+
+.expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  color: var(--text-secondary);
+  transition: color 0.2s, background-color 0.2s;
+  border-radius: 0.25rem;
+}
+
+.expand-btn:hover {
+  background-color: var(--row-bg);
+  color: var(--text-primary);
+}
+
+.emotion-tag {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--accent-light);
+  color: var(--text-primary);
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

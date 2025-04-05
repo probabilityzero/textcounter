@@ -11,7 +11,7 @@ const Textarea: React.FC<TextareaProps> = ({ content, onChange }) => {
       className="text-area"
       value={content}
       onChange={(e) => onChange(e.target.value)}
-      placeholder="Enter your text here..."
+      placeholder="Enter your text here to analyze..."
       aria-label="Text content"
     />
   );
